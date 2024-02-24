@@ -18,7 +18,7 @@ from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.db.models import F
 
-from app.users.models import TelegramUser, Notification, PeriodicallyNotification
+from app.users.models import TelegramUser, Notification
 from bot.utils.storage import DjangoRedisStorage
 from bot.filters.states import Registration
 from bot.misc import bot, bot_session

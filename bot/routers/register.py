@@ -3,6 +3,7 @@ from aiogram import Router, types
 from aiogram.filters import Command, CommandObject
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _, activate
 from aiogram.types import KeyboardButton, ReplyKeyboardRemove
 
@@ -16,11 +17,7 @@ router = Router()
 
 
 @router.message(Command("start"))
-async def on_start(message: types.Message, command: CommandObject, state: FSMContext, user: User):
-    promo = None
-    if command.args:
-        promo = command.args
-
+async def on_start(message: types.Message, state: FSMContext, user: User):
     if not user.language or not user.phone or not user.fullname:
         hello_text = ("Вас приветствует бот сети супермаркетов Makro! Этот бот поможет "
                       "Вам в регистрации промокодов для участия в розыгрыше. "
@@ -32,9 +29,6 @@ async def on_start(message: types.Message, command: CommandObject, state: FSMCon
 
         await message.answer(hello_text, reply_markup=language_kb())
         await state.set_state(Registration.language)
-        await state.set_data({"promo": promo})
-    elif promo is not None:
-        await send_registered_message(message, promo, user.language)
     else:
         await message.answer(str(_("Выберите раздел")), reply_markup=menu_kb(user.language))
 
@@ -92,13 +86,9 @@ async def registration_finish(message: types.Message, state: FSMContext, user: U
     else:
         await message.answer(error_text, reply_markup=contact_kb())
         return
-    data = await state.get_data()
-    promo = data.get("promo")
-    if promo is None:
-        await message.answer(
-            str(_(
-                "Вы успешно зарегистрировались на платформе! Отправьте промокод сюда, чтобы зарегистрировать его")),
-            reply_markup=menu_kb(user.language))
-    else:
-        await send_registered_message(message, promo, user.language)
+    await message.answer(
+        str(_(
+            "Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше подпишитесь на канал!")),
+        reply_markup=menu_kb(user.language))
+    await message.answer(settings.TG_CHANNEL_LINK)
     await state.clear()

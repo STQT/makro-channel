@@ -14,7 +14,7 @@ services:
 
     image: app_production_django
     volumes:
-      - /var/www/bot.makromarket.uz/media:/app/media
+      - /var/www/bot.makromarket.uz/media:/app/app/media
       - /var/www/bot.makromarket.uz/static:/app/staticfiles
     depends_on:
       - postgres

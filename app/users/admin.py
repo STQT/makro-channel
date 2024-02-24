@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib import admin
 
-from app.users.models import Notification, NotificationShots, PeriodicallyNotification, PeriodicallyNotificationShots
+from app.users.models import Notification, NotificationShots
 
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -54,24 +54,11 @@ class NotificationShotsInline(admin.TabularInline):
     model = NotificationShots
 
 
-class PeriodicallyNotificationShotsInline(admin.TabularInline):
-    extra = 1
-    model = PeriodicallyNotificationShots
-
-
 class NotificationAdminForm(forms.ModelForm):
     description = forms.CharField(widget=CustomCKEditorWidget())
 
     class Meta:
         model = Notification
-        fields = '__all__'
-
-
-class PeriodicallyNotificationForm(forms.ModelForm):
-    description = forms.CharField(widget=CustomCKEditorWidget())
-
-    class Meta:
-        model = PeriodicallyNotification
         fields = '__all__'
 
 
@@ -126,24 +113,3 @@ class NotificationAdmin(admin.ModelAdmin):
         return False
 
 
-@admin.register(PeriodicallyNotification)
-class PeriodicallyNotificationAdmin(admin.ModelAdmin):
-    list_display = ["short_description", "display_image", "is_current"]
-    inlines = [PeriodicallyNotificationShotsInline]
-    form = PeriodicallyNotificationForm
-
-    def short_description(self, obj):
-        descr = striptags(obj.description)
-        return descr[:100] + "..."
-
-    short_description.short_description = "Описание"
-
-    def display_image(self, obj):
-        images = obj.periodic_shots
-        image = None
-        if images.exists():
-            image = images.first()
-        img_html = f'<img src="{image.image.url}" width="50" height="50" />' if image else '<div>Без изображения</div>'
-        return mark_safe(img_html)
-
-    display_image.short_description = "Изображение"

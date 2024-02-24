@@ -383,3 +383,5 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
+TG_CHANNEL_ID = env("TG_CHANNEL_ID")
+TG_CHANNEL_LINK = env("TG_CHANNEL_LINK")
