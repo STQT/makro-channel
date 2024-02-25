@@ -31,8 +31,8 @@ services:
     image: "${POSTGRES_IMAGE_NAME}"
     container_name: "${POSTGRES_CONTAINER_NAME}"
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data
-      - production_postgres_data_backups:/backups
+      - makro_channel_postgres_data:/var/lib/postgresql/data
+      - makro_channel_postgres_data_backups:/backups
     env_file:
       - .env
 
