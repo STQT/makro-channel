@@ -1,3 +1,5 @@
+import logging
+
 from aiogram import Router, types
 from aiogram.enums import ChatMemberStatus
 from django.conf import settings
@@ -16,9 +18,12 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
         chat_member.new_chat_member.status == ChatMemberStatus.MEMBER
     ):
         # If join user
-        user = await TelegramUser.objects.aget(id=chat_member.from_user.id)
-        user.is_joined = True
-        await user.asave()
+        try:
+            user = await TelegramUser.objects.aget(id=chat_member.from_user.id)
+            user.is_joined = True
+            await user.asave()
+        except TelegramUser.DoesNotExist:
+            logging.warning(f"This user joining without bot: {chat_member.from_user.full_name}")
     elif chat_member.chat.id == channel_id:
         # If left or promote user
         await chat_member.bot.send_message(

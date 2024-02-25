@@ -453,10 +453,6 @@ msgstr ""
 msgid "Не найдена активная акция на сегодня"
 msgstr ""
 
-#: bot/routers/callback.py:24
-msgid "Отсутствует"
-msgstr ""
-
 #: bot/routers/echo.py:26
 msgid "Отправьте нам промокод"
 msgstr ""

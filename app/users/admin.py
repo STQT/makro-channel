@@ -15,8 +15,21 @@ from app.users.models import TelegramUser
 
 from .forms import CustomCKEditorWidget
 from django.template.defaultfilters import striptags
+from import_export.admin import ExportMixin
+from import_export import resources, fields
 
 User = get_user_model()
+
+
+class TelegramUserResource(resources.ModelResource):
+    user_phone = fields.Field(column_name='Телефон номер', attribute='phone/')
+
+    class Meta:
+        model = TelegramUser
+        fields = ('fullname', 'user_phone', 'created_at', 'is_joined', 'is_active')
+
+    def dehydrate_user_phone(self, code):
+        return code.phone
 
 
 @admin.register(User)
@@ -45,8 +58,10 @@ class UserAdmin(auth_admin.UserAdmin):
 
 
 @admin.register(TelegramUser)
-class TelegramUserAdmin(admin.ModelAdmin):
-    list_display = ["phone", "fullname", "is_active", "language"]
+class TelegramUserAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = TelegramUserResource
+    list_filter = ['is_joined', 'is_active']
+    list_display = ["phone", "fullname", "is_active", "is_joined", "language"]
 
 
 class NotificationShotsInline(admin.TabularInline):
@@ -107,9 +122,7 @@ class NotificationAdmin(admin.ModelAdmin):
         return True
 
     def has_change_permission(self, request, obj=None):
-        return True
+        return False
 
     def has_delete_permission(self, request, obj=None):
         return False
-
-

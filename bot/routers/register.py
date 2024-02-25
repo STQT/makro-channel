@@ -1,6 +1,7 @@
 import phonenumbers
 from aiogram import Router, types
-from aiogram.filters import Command, CommandObject
+from aiogram.enums import ChatMemberStatus
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from django.conf import settings
@@ -9,7 +10,6 @@ from aiogram.types import KeyboardButton, ReplyKeyboardRemove
 
 from bot.filters.states import Registration
 from app.users.models import TelegramUser as User
-from bot.functions import send_registered_message
 from bot.helpers import format_phone_number
 from bot.utils.kbs import contact_kb, language_kb, languages, menu_kb
 
@@ -86,9 +86,20 @@ async def registration_finish(message: types.Message, state: FSMContext, user: U
     else:
         await message.answer(error_text, reply_markup=contact_kb())
         return
-    await message.answer(
-        str(_(
-            "Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше подпишитесь на канал!")),
-        reply_markup=menu_kb(user.language))
-    await message.answer(settings.TG_CHANNEL_LINK)
+    chat_member = await message.bot.get_chat_member(settings.TG_CHANNEL_ID, message.from_user.id)
+    if chat_member.status == ChatMemberStatus.LEFT:
+        await message.answer(
+            str(_(
+                "Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше подпишитесь на канал!")),
+            reply_markup=menu_kb(user.language))
+        await message.answer(settings.TG_CHANNEL_LINK)
+    else:
+        user.is_joined = True
+        await user.asave()
+        await message.answer(
+            str(_(
+                "Поздравляем! Вы учавствуете в розыгрыше"
+            )),
+            reply_markup=menu_kb(user.language)
+        )
     await state.clear()

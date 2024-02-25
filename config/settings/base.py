@@ -34,9 +34,9 @@ LANGUAGES = [
 ]
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_LANGUAGES = ('ru', 'uz')
-MODELTRANSLATION_TRANSLATION_FILES = (
-    'app.promotions.translation',
-)
+# MODELTRANSLATION_TRANSLATION_FILES = (
+#     'app.promotions.translation',
+# )
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
@@ -90,7 +90,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "app.users",
-    "app.promotions",
     "bot",
 
     # Your stuff: custom apps go here

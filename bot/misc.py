@@ -1,5 +1,6 @@
 from aiogram import Dispatcher, Bot
 from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.exceptions import TelegramBadRequest
 from django.conf import settings
 
 from bot.routers import router
