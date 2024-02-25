@@ -5,6 +5,9 @@ from aiogram.enums import ChatMemberStatus
 from django.conf import settings
 
 from app.users.models import TelegramUser
+from django.utils.translation import gettext_lazy as _, activate
+
+from bot.utils.kbs import menu_kb
 
 router = Router()
 
@@ -21,7 +24,15 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
         try:
             user = await TelegramUser.objects.aget(id=chat_member.from_user.id)
             user.is_joined = True
+            activate(user.language)
             await user.asave()
+            await chat_member.bot.send_message(
+                chat_member.from_user.id,
+                str(_(
+                    "Поздравляем! Вы учавствуете в розыгрыше"
+                )),
+                reply_markup=menu_kb(user.language)
+            )
         except TelegramUser.DoesNotExist:
             logging.warning(f"This user joining without bot: {chat_member.from_user.full_name}")
     elif chat_member.chat.id == channel_id:
