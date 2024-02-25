@@ -16,13 +16,17 @@ router = Router()
 async def chat_member_handler(chat_member: types.ChatMemberUpdated):
     channel_id = settings.TG_CHANNEL_ID
     channel_link = settings.TG_CHANNEL_LINK
-    if (
-        chat_member.chat.id == channel_id and
-        chat_member.new_chat_member.status == ChatMemberStatus.MEMBER
-    ):
-        # If join user
-        try:
-            user = await TelegramUser.objects.aget(id=chat_member.from_user.id)
+    chat_id = str(chat_member.chat.id)
+    try:
+        user = await TelegramUser.objects.aget(id=chat_member.from_user.id)
+        if (
+            chat_id == channel_id and
+            chat_member.new_chat_member.status in
+            (
+                ChatMemberStatus.MEMBER, ChatMemberStatus.CREATOR, ChatMemberStatus.ADMINISTRATOR
+            )
+        ):
+            # If join user
             user.is_joined = True
             activate(user.language)
             await user.asave()
@@ -33,15 +37,19 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
                 )),
                 reply_markup=menu_kb(user.language)
             )
-        except TelegramUser.DoesNotExist:
-            logging.warning(f"This user joining without bot: {chat_member.from_user.full_name}")
-    elif chat_member.chat.id == channel_id:
-        # If left or promote user
-        await chat_member.bot.send_message(
-            chat_member.from_user.id,
-            "Вы вышли с канала! Просим повторно подписаться, чтобы учавствовать в розыгрыше!\n"
-            f"{channel_link}"
-        )
+
+        elif chat_id == channel_id:
+            # If left or promote user
+            user.is_joined = False
+            activate(user.language)
+            await user.asave()
+            await chat_member.bot.send_message(
+                chat_member.from_user.id,
+                "Вы вышли с канала! Просим повторно подписаться, чтобы учавствовать в розыгрыше!\n"
+                f"{channel_link}"
+            )
+    except TelegramUser.DoesNotExist:
+        logging.warning(f"This user joining without bot: {chat_member.from_user.full_name}")
 
 
 @router.my_chat_member()
