@@ -46,7 +46,7 @@ async def registration_language(message: types.Message, state: FSMContext, user:
                                    "удостоверению вашей личности.")),
                              reply_markup=ReplyKeyboardRemove())
     else:
-        await message.answer(str(_("Неправильная команда")))
+        await message.answer(str(_("Неверная команда")))
 
 
 @router.message(Registration.fio)
@@ -70,7 +70,9 @@ async def registration_finish(message: types.Message, state: FSMContext, user: U
         await user.asave()
     elif message.text:
         formatted_phone = format_phone_number(message.text)
-
+        if not formatted_phone.startswith("+998"):
+            await message.answer(_("В акции можно учавствовать с узбекистанским номером"))
+            return
         if len(formatted_phone) == 13:
             parsed_number = phonenumbers.parse(formatted_phone)
             is_valid = phonenumbers.is_valid_number(parsed_number)
