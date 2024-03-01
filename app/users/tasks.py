@@ -119,14 +119,14 @@ def send_notifications_text(text, chat_id, media=None):
     return response.status_code
 
 
-@shared_task()
+@shared_task(time_limit=300)
 def send_notifications_task(notification_id, text, media, offset, chunk_size, is_notification=True):
     chunk_chats = TelegramUser.objects.filter(is_active=True).order_by('id')[offset:offset + chunk_size]
     text = text.replace("<br />", "\n")
     for chat in chunk_chats:
         send_notification_bound = send_media_group if media else send_notifications_text
         response = send_notification_bound(text=text, chat_id=chat.id, media=media)
-        time.sleep(0.035)
+        time.sleep(0.05)
         if response != 200:
             chat.is_active = False  # Reset is_stopped flag if the message was sent successfully
             chat.save()
