@@ -65,13 +65,18 @@ async def registration_phone(message: types.Message, state: FSMContext, user: Us
 async def registration_finish(message: types.Message, state: FSMContext, user: User):
     error_text = str(_("Неправильно указан номер телефона. \n"
                        "Пожалуйста, введите номер телефона в формате +998 хх ххх хх хх"))
+    error_region_text = str(_("В акции можно учавствовать с узбекистанским номером"))
     if message.contact:
-        user.phone = message.contact.phone_number
+        phone_number = message.contact.phone_number
+        if not phone_number.startswith("+998"):
+            await message.answer(error_region_text)
+            return
+        user.phone = phone_number
         await user.asave()
     elif message.text:
         formatted_phone = format_phone_number(message.text)
         if not formatted_phone.startswith("+998"):
-            await message.answer(_("В акции можно учавствовать с узбекистанским номером"))
+            await message.answer(error_region_text)
             return
         if len(formatted_phone) == 13:
             parsed_number = phonenumbers.parse(formatted_phone)

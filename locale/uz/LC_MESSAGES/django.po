@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 11:19+0500\n"
+"POT-Creation-Date: 2024-03-01 11:33+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Information successfully updated"
 msgstr ""
 
-#: bot/routers/chatmember.py:36 bot/routers/register.py:103
+#: bot/routers/chatmember.py:36 bot/routers/register.py:108
 msgid "Поздравляем! Вы учавствуете в розыгрыше"
 msgstr ""
 
@@ -428,11 +428,11 @@ msgstr ""
 "kiriting.Telefon raqami noto‘g‘ri. Telefon raqamini +998 xx xxx xx xx "
 "formatida kiriting"
 
-#: bot/routers/register.py:74
+#: bot/routers/register.py:68
 msgid "В акции можно учавствовать с узбекистанским номером"
 msgstr "Aksiyada faqat O'zbekiston raqami ishtirok etadi"
 
-#: bot/routers/register.py:95
+#: bot/routers/register.py:100
 msgid ""
 "Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше "
 "подпишитесь на канал!"
