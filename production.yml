@@ -13,8 +13,8 @@ services:
     image: "${DJANGO_IMAGE_NAME}"
     container_name: "${DJANGO_CONTAINER_NAME}"
     volumes:
-      - /var/www/bot.makromarket.uz/media:/app/app/media
-      - /var/www/bot.makromarket.uz/static:/app/staticfiles
+      - /var/www/smmbot.makromarket.uz/media:/app/app/media
+      - /var/www/smmbot.makromarket.uz/static:/app/staticfiles
     depends_on:
       - postgres
       - redis
