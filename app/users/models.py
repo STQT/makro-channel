@@ -45,6 +45,8 @@ class TelegramUser(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_joined = models.BooleanField(default=False)
+    referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name='referrals')
 
     def __str__(self):
         return f"{self.id}, {self.fullname}"

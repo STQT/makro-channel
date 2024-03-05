@@ -22,14 +22,18 @@ User = get_user_model()
 
 
 class TelegramUserResource(resources.ModelResource):
-    user_phone = fields.Field(column_name='Телефон номер', attribute='phone/')
+    user_phone = fields.Field(column_name='Телефон номер', attribute='phone')
+    referral_count = fields.Field(column_name='Приглашено')
 
     class Meta:
         model = TelegramUser
-        fields = ('fullname', 'user_phone', 'created_at', 'is_joined', 'is_active')
+        fields = ('fullname', 'user_phone', 'created_at', 'is_joined', 'is_active', 'referral_count')
 
     def dehydrate_user_phone(self, code):
         return code.phone
+
+    def dehydrate_referral_count(self, user):
+        return user.referrals.count()
 
 
 @admin.register(User)

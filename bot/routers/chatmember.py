@@ -33,7 +33,7 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
             await chat_member.bot.send_message(
                 chat_member.from_user.id,
                 str(_(
-                    "Поздравляем! Вы учавствуете в розыгрыше"
+                    "Поздравляем! Вы учавствуете в розыгрыше сертификатов на покупки в Makro"
                 )),
                 reply_markup=menu_kb(user.language)
             )

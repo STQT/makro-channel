@@ -8,6 +8,7 @@ DJANGO_ALLOWED_HOSTS=.promo.makromarket.uz
 HOST=
 TG_CHANNEL_LINK=
 TG_CHANNEL_ID=
+TG_BOT_LINK=
 BOT_TOKEN=
 
 # Security

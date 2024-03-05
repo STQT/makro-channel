@@ -384,3 +384,4 @@ CKEDITOR_CONFIGS = {
 }
 TG_CHANNEL_ID = env("TG_CHANNEL_ID")
 TG_CHANNEL_LINK = env("TG_CHANNEL_LINK")
+TG_BOT_LINK = env("TG_BOT_LINK", default="https://t.me/epscheckerbot")

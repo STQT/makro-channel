@@ -1,7 +1,7 @@
 import phonenumbers
 from aiogram import Router, types
 from aiogram.enums import ChatMemberStatus
-from aiogram.filters import Command
+from aiogram.filters import Command, CommandObject
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from django.conf import settings
@@ -17,7 +17,10 @@ router = Router()
 
 
 @router.message(Command("start"))
-async def on_start(message: types.Message, state: FSMContext, user: User):
+async def on_start(message: types.Message, command: CommandObject, state: FSMContext, user: User):
+    ref = None
+    if command.args:
+        ref = command.args
     if not user.language or not user.phone or not user.fullname:
         hello_text = ("Вас приветствует бот сети супермаркетов Makro! Этот бот поможет "
                       "Вам в регистрации промокодов для участия в розыгрыше. "
@@ -29,6 +32,7 @@ async def on_start(message: types.Message, state: FSMContext, user: User):
 
         await message.answer(hello_text, reply_markup=language_kb())
         await state.set_state(Registration.language)
+        await state.set_data({"ref": ref})
     else:
         await message.answer(str(_("Выберите раздел")), reply_markup=menu_kb(user.language))
 
@@ -66,6 +70,13 @@ async def registration_finish(message: types.Message, state: FSMContext, user: U
     error_text = str(_("Неправильно указан номер телефона. \n"
                        "Пожалуйста, введите номер телефона в формате +998 хх ххх хх хх"))
     error_region_text = str(_("В акции можно учавствовать с узбекским номером"))
+
+    data = await state.get_data()
+    ref = data.get("ref")
+    print(ref)
+    if ref is not None:
+        user.referred_by_id = ref
+
     if message.contact:
         phone_number = message.contact.phone_number
         if not phone_number.startswith("+998"):
