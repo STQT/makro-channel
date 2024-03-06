@@ -33,7 +33,7 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
             await chat_member.bot.send_message(
                 chat_member.from_user.id,
                 str(_(
-                    "Поздравляем! Вы учавствуете в розыгрыше сертификатов на покупки в Makro"
+                    "Поздравляем! Вы участвуете в розыгрыше сертификатов на покупки в Makro"
                 )),
                 reply_markup=menu_kb(user.language)
             )
@@ -45,7 +45,7 @@ async def chat_member_handler(chat_member: types.ChatMemberUpdated):
             await user.asave()
             await chat_member.bot.send_message(
                 chat_member.from_user.id,
-                "Вы вышли с канала! Просим повторно подписаться, чтобы учавствовать в розыгрыше!\n"
+                "Вы вышли с канала! Просим повторно подписаться, чтобы принять участие в розыгрыше\n"
                 f"{channel_link}"
             )
     except TelegramUser.DoesNotExist:

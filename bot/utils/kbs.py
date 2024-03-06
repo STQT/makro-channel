@@ -8,8 +8,8 @@ languages = (
     str(_("🇷🇺 Русский язык"))
 )
 menu_keyboards_dict = {
-    "ru": ("🎁 Об акции", "🌐 Социальные сети", "👤 Личный кабинет"),
-    "uz": ("🎁 Aksiya haqida", "🌐 Ijtimoiy tarmoqlar", "👤 Shaxsiy kabinet")
+    "ru": ("🎁 Об акции", "🌐 Социальные сети", "👤 Личный кабинет", "👥 Пригласить друга"),
+    "uz": ("🎁 Aksiya haqida", "🌐 Ijtimoiy tarmoqlar", "👤 Shaxsiy kabinet", "👥 Doʻstni chaqirish")
 }
 
 
@@ -32,18 +32,24 @@ def menu_kb(language_code='ru'):
     markup.add(
         *(KeyboardButton(text=menu) for menu in menu_keyboards_dict[language_code])
     )
-    return markup.adjust(2).as_markup(resize_keyboard=True)
+    return markup.adjust(1).as_markup(resize_keyboard=True)
+
+
+def get_invite_text(user_id, is_markdown=False):
+    link = settings.TG_BOT_LINK + "?start=" + str(user_id)
+    link = "<a href='" + link + str(_("'>Ссылка</a>")) if is_markdown else link
+    text = str(
+        _(
+            "Ценные призы за подписку! Выигрывайте сертификаты на покупки в Makro\n"
+            "ℹ️ {link}"
+
+        )).format(link=link)
+    return text
 
 
 def get_keyboard_fab(user_id):
     builder = InlineKeyboardBuilder()
-    link = settings.TG_BOT_LINK + "?start=" + str(user_id)
-    text = str(
-        _(
-            "Ценные призы за подписку! Выигрывайте сертификаты на покупки в Makro"
-            "ℹ️ {link}"
-
-        )).format(link=link)
+    text = get_invite_text(user_id)
     builder.button(
         text=str(_("Пригласить друга")),
         switch_inline_query=text

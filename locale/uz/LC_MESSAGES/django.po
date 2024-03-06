@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 01:57+0500\n"
+"POT-Creation-Date: 2024-03-06 16:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,9 +369,11 @@ msgstr ""
 msgid "Information successfully updated"
 msgstr ""
 
-#: bot/routers/chatmember.py:36 bot/routers/register.py:120
-msgid "Поздравляем! Вы учавствуете в розыгрыше"
-msgstr "Tabriklaymiz! Siz Makroda xaridlar uchun sertifikatlar o‘yinida ishtirok etmoqdasi"
+#: bot/routers/chatmember.py:36
+msgid "Поздравляем! Вы участвуете в розыгрыше сертификатов на покупки в Makro"
+msgstr ""
+"Tabriklaymiz! Siz Makroda xaridlar uchun sertifikatlar o‘yinida ishtirok "
+"etmoqdasiz"
 
 #: bot/routers/echo.py:16
 msgid ""
@@ -389,14 +391,13 @@ msgid ""
 "💚 Ценные призы за подписку! Выигрывайте сертификаты на покупки в Makroℹ️ "
 "Подписывайте на наш официальный телеграмм канал @makrosupermarket_uz, "
 "регистрируйтесь в боте и участвуйте в розыгрыше сертификатов. ✨ Разыгрываем "
-"5 сертификатов по 500 000 сум.📅 Период проведения конкурса: ... "
+"5 сертификатов по 500 000 сум.📅 Период проведения конкурса: ..."
 msgstr ""
-"💚 Obuna evaziga qimmatbaho sovrinlar! Makroda xaridlar uchun sertifikatlarni yutib oling"
-"ℹ️ @makrosupermarket_uz rasmiy telegram kanalimizga obuna bo‘ling, "
-"... botida ro‘yxatdan o‘ting, sertifikatlar o‘yinida ishtirok eting."
-"  ✨ 500 000 so‘mlik 5 ta sertifikat yutuqqa qo‘yiladi."
-"📅 Tanlov muddati: ..."
-
+"💚 Obuna evaziga qimmatbaho sovrinlar! Makroda xaridlar uchun "
+"sertifikatlarni yutib olingℹ️ @makrosupermarket_uz rasmiy telegram "
+"kanalimizga obuna bo‘ling, ... botida ro‘yxatdan o‘ting, sertifikatlar "
+"o‘yinida ishtirok eting.  ✨ 500 000 so‘mlik 5 ta sertifikat yutuqqa "
+"qo‘yiladi.📅 Tanlov muddati: ..."
 
 #: bot/routers/echo.py:44
 #, python-brace-format
@@ -409,23 +410,23 @@ msgstr ""
 "FISH: {fullname}\n"
 "Telefon: {phone}\n"
 "Taklif qilindi: {refferal} odam\n"
-"{referred_by}5 ta doʻstingizni olib keling va gʻalaba "
-"qozonish imkoniyatini ikki baravarga oshiring!"
+"{referred_by}5 ta doʻstingizni olib keling va gʻalaba qozonish"
+" imkoniyatini ikki baravarga oshiring!"
 
 #: bot/routers/echo.py:54
 #, python-brace-format
 msgid "Вас пригласил: {referred_by}\n"
 msgstr "Sizni taklif qildi: {referred_by}\n"
 
-#: bot/routers/echo.py:61 bot/routers/register.py:54
+#: bot/routers/echo.py:63 bot/routers/register.py:53
 msgid "Неверная команда"
 msgstr "Noto‘gri buyruq"
 
-#: bot/routers/register.py:38
+#: bot/routers/register.py:37
 msgid "Выберите раздел"
 msgstr "Bo‘limni tanlang"
 
-#: bot/routers/register.py:49
+#: bot/routers/register.py:48
 msgid ""
 "Пожалуйста, введите свое имя и фамилию.\n"
 "❗️Обращаем Ваше внимание – имя и фамилия должны соответствовать "
@@ -435,37 +436,42 @@ msgstr ""
 "❗️E'tibor bering - ismingiz va familiyangiz shaxsingizni tasdiqlovchi "
 "hujjatga mos kelishi kerak."
 
-#: bot/routers/register.py:62 bot/utils/kbs.py:18
+#: bot/routers/register.py:61 bot/utils/kbs.py:18
 msgid "Отправить телефон"
 msgstr "Telefon yuborish"
 
-#: bot/routers/register.py:63
+#: bot/routers/register.py:62
 msgid ""
-"Введите Ваш контактный номер телефона регистрации промо-кода. В случае "
-"выигрыша приза, мы будем связываться с Вами по указанному номеру телефона."
+"Введите Ваш контактный номер. В случае выигрыша приза, мы свяжемся с Вами по "
+"указанному номеру телефона."
 msgstr ""
-"Promokodni ro‘yxatdan o‘tkazish uchun telefon raqamingizni kiriting. Agar "
-"siz sovrin yutib olsangiz, ko‘rsatilgan telefon raqami orqali siz bilan "
-"bog‘lanamiz."
+"Aloqa raqamingizni kiriting.Agar sovrin yutib olsangiz, "
+"ko‘rsatilgan telefon raqami orqali siz bilan bog‘lanamiz"
 
-#: bot/routers/register.py:71
+#: bot/routers/register.py:70
 msgid ""
 "Неправильно указан номер телефона. \n"
-"Пожалуйста, введите номер телефона в формате +998 хх ххх хх хх"
+"Пожалуйста введите номер телефона в формате +998 хх ххх хх хх"
 msgstr ""
-"Noto‘g‘ri promokod. Kiritilgan promokodni yana bir bor tekshiring va qayta "
-"kiriting.Telefon raqami noto‘g‘ri. Telefon raqamini +998 xx xxx xx xx "
-"formatida kiriting"
+"Telefon raqami noto‘g‘ri. "
+"Telefon raqamini +998 xx xxx xx xx formatida kiriting."
 
-#: bot/routers/register.py:73
+#: bot/routers/register.py:72
 msgid "В акции можно учавствовать с узбекским номером"
 msgstr "Aksiyada faqat O'zbekiston raqami ishtirok etadi"
 
-#: bot/routers/register.py:112
+#: bot/routers/register.py:109
 msgid ""
-"Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше "
-"подпишитесь на канал!"
-msgstr "Siz ro‘yxatdan muvaffaqiyatli o‘tdingiz! O‘z promokodingizni yuboring"
+"Вы успешно зарегистрировались на платформе! Чтобы принять участие в "
+"розыгрыше, подпишитесь на канал!"
+msgstr "Siz platformada muvaffaqiyatli ro‘yxatdan o‘tdingiz! "
+"O‘yinda ishtirok etish uchun kanalga obuna bo‘ling!"
+
+#: bot/routers/register.py:118
+msgid "Поздравляем! Вы учавствуете в розыгрыше"
+msgstr ""
+"Tabriklaymiz! Siz Makroda xaridlar uchun sertifikatlar o‘yinida ishtirok "
+"etmoqdasiz"
 
 #: bot/utils/kbs.py:7
 msgid "🇺🇿 O'zbek tili"
@@ -475,15 +481,19 @@ msgstr ""
 msgid "🇷🇺 Русский язык"
 msgstr ""
 
-#: bot/utils/kbs.py:43
-#, python-brace-format
-msgid ""
-"Ценные призы за подписку! Выигрывайте сертификаты на покупки в Makroℹ️ {link}"
-msgstr ""
-"Obuna evaziga qimmatbaho sovrinlar! Makroda xaridlar uchun "
-"sertifikatlarni yutib olingℹ️ {link}"
+#: bot/utils/kbs.py:40
+msgid "'>Ссылка</a>"
+msgstr "'>Havola</a>"
 
-#: bot/utils/kbs.py:48
+#: bot/utils/kbs.py:43
+msgid ""
+"Ценные призы за подписку! Выигрывайте сертификаты на покупки в Makro\n"
+"ℹ️ {link}"
+msgstr ""
+"Obuna evaziga qimmatbaho sovrinlar! Makroda xaridlar uchun sertifikatlarni "
+"yutib oling\nℹ️ {link}"
+
+#: bot/utils/kbs.py:54
 msgid "Пригласить друга"
 msgstr "Do'stni taklif qilish"
 
@@ -494,6 +504,3 @@ msgstr ""
 #: config/settings/base.py:33
 msgid "O'zbek"
 msgstr ""
-
-#~ msgid "Текст акции"
-#~ msgstr "Aksiya shartlari"

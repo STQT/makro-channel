@@ -59,8 +59,8 @@ async def registration_phone(message: types.Message, state: FSMContext, user: Us
     await user.asave()
     markup = ReplyKeyboardBuilder()
     markup.add(KeyboardButton(text=str(_("Отправить телефон")), request_contact=True))
-    await message.answer(str(_("Введите Ваш контактный номер телефона регистрации промо-кода. "
-                               "В случае выигрыша приза, мы будем связываться с Вами по указанному номеру телефона.")),
+    await message.answer(str(_("Введите Ваш контактный номер. "
+                               "В случае выигрыша приза, мы свяжемся с Вами по указанному номеру телефона.")),
                          reply_markup=contact_kb())
     await state.set_state(Registration.phone)
 
@@ -68,12 +68,11 @@ async def registration_phone(message: types.Message, state: FSMContext, user: Us
 @router.message(Registration.phone)
 async def registration_finish(message: types.Message, state: FSMContext, user: User):
     error_text = str(_("Неправильно указан номер телефона. \n"
-                       "Пожалуйста, введите номер телефона в формате +998 хх ххх хх хх"))
+                       "Пожалуйста введите номер телефона в формате +998 хх ххх хх хх"))
     error_region_text = str(_("В акции можно учавствовать с узбекским номером"))
 
     data = await state.get_data()
     ref = data.get("ref")
-    print(ref)
     if ref is not None:
         user.referred_by_id = ref
 
@@ -107,8 +106,8 @@ async def registration_finish(message: types.Message, state: FSMContext, user: U
     chat_member = await message.bot.get_chat_member(settings.TG_CHANNEL_ID, message.from_user.id)
     if chat_member.status == ChatMemberStatus.LEFT:
         await message.answer(
-            str(_(
-                "Вы успешно зарегистрировались на платформе! Чтобы учавствовать в розыгрыше подпишитесь на канал!")),
+            str(_("Вы успешно зарегистрировались на платформе! "
+                  "Чтобы принять участие в розыгрыше, подпишитесь на канал!")),
             reply_markup=menu_kb(user.language))
         await message.answer(settings.TG_CHANNEL_LINK)
     else:

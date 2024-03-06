@@ -1,7 +1,7 @@
 from aiogram import Router, types
 from django.utils.translation import gettext_lazy as _, activate
 from app.users.models import TelegramUser as User
-from bot.utils.kbs import menu_keyboards_dict, get_keyboard_fab
+from bot.utils.kbs import menu_keyboards_dict, get_keyboard_fab, get_invite_text
 
 router = Router()
 
@@ -57,5 +57,7 @@ async def echo_handler(message: types.Message, user: User) -> None:
                 )),
                 reply_markup=get_keyboard_fab(message.from_user.id)
             )
+        elif message.text in ("👥 Пригласить друга", "👥 Doʻstni chaqirish"):
+            await message.answer(get_invite_text(message.from_user.id, is_markdown=True))
     else:
         await message.answer(str(_("Неверная команда")))
