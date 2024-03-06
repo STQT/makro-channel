@@ -13,7 +13,7 @@ router = Router()
 
 
 @router.chat_member()
-async def chat_member_handler(chat_member: types.ChatMemberUpdated):
+async def chat_member_handler(chat_member: types.ChatMemberUpdated, user: None):
     channel_id = settings.TG_CHANNEL_ID
     channel_link = settings.TG_CHANNEL_LINK
     chat_id = str(chat_member.chat.id)

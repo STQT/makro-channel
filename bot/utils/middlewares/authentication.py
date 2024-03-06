@@ -12,9 +12,10 @@ class AuthenticationMiddleware(BaseMiddleware):
         bot_user = data['event_from_user']
         if bot_user is None:
             return await handler(event, data)
-
-        user, _ = await TelegramUser.objects.aupdate_or_create(id=bot_user.id,
-                                                               defaults={"is_active": True})
-        data['user'] = user
+        data['user'] = None
+        if data['event_chat'].id == data['event_from_user'].id:
+            user, _ = await TelegramUser.objects.aupdate_or_create(id=bot_user.id,
+                                                                   defaults={"is_active": True})
+            data['user'] = user
 
         return await handler(event, data)
